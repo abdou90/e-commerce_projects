@@ -11,6 +11,9 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 
 
@@ -40,18 +43,43 @@ class RegisterUserType extends AbstractType
                 ]
                 ],
                 'mapped' => false,
+                'constraints' => [
+                    new Length([
+                        'min' => 4,
+                        'max' => 30,
+                        'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} caractères.',
+                        'maxMessage' => 'Votre mot de passe ne peut pas dépasser {{ limit }} caractères.',
+                    ])
+                    ]
             ])
             ->add('firstname', TextType::class, [
                 'label' => "votre Prénom",
+                'constraints' => [
+                    new Length([
+                        'min' => 2,
+                        'max' => 30,
+                        'minMessage' => 'Votre prénom doit contenir au moins {{ limit }} caractères.',
+                        'maxMessage' => 'Votre prénom ne peut pas dépasser {{ limit }} caractères.',
+                    ])
+                ],
                 'attr' => [
                     'placeholder' => 'Entrez votre prénom'
                 ]
             ])
             ->add('lastname', TextType::class, [
                 'label' => "votre Nom",
+                'constraints' => [
+                    new Length([
+                        'min' => 2,
+                        'max' => 30,
+                        'minMessage' => 'Votre Nom doit contenir au moins {{ limit }} caractères.',
+                        'maxMessage' => 'Votre Nom ne peut pas dépasser {{ limit }} caractères.',
+                    ])
+                    ],
                 'attr' => [
                     'placeholder' => 'Entrez votre nom'
-                ]
+                ],
+                
             ])
             ->add('submit', SubmitType::class)
         ;
@@ -61,6 +89,12 @@ class RegisterUserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'constraints' => [
+                new UniqueEntity([
+                    'fields' => 'email',
+                    'message' => 'Cette adresse email est déjà utilisée.',
+                ]),
+            ],
         ]);
     }
 }
