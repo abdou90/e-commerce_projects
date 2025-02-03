@@ -77,8 +77,10 @@
 
 .speed-menu a {
     color: #fff;
+    text-decoration: none;
 }
 
 .speed-menu a {
     margin-right: 20px;
+    text-decoration: none;
 }
