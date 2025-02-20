@@ -28,11 +28,9 @@ class RegisterController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // Optionnel : Ajouter un message flash pour informer l'utilisateur
-            $this->addFlash('success', 'Inscription réussie !');
-
-            // Rediriger ou retourner une réponse
-           // return $this->redirectToRoute('app_home'); // Redirection vers la page d'accueil, à adapter selon votre besoin
+            // un message flash pour informer l'utilisateur
+            $this->addFlash('success', 'Votre compte a été créé avec succès !');
+            return $this->redirectToRoute('app_login');
         }
 
         // Rendre la vue avec le formulaire

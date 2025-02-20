@@ -57,6 +57,18 @@
 
 <main>
 
+        <div class="container">
+            {% for message in app.flashes('success') %}
+                <div class="alert mt-4 alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+
+
+
+
+
       {% block body %}{% endblock %}
     <!-- FOOTER -->
     <footer class="container">
